@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MCHOSE": {
+      "commandName": "Project",
+      "commandLineArgs": "--console"
+    }
+  }
+}
