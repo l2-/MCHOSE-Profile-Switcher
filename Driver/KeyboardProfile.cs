@@ -11,8 +11,7 @@ public sealed record KeyboardProfile
     public required Globaltravel GlobalTravel { get; set; }
     public required int ReportRate { get; set; }
     public required Dictionary<string, IReadOnlyList<object>> ColorKeys { get; set; }
-    // Not supported
-    public required IReadOnlyList<object> AdvancedKeys { get; set; }
+    public required IReadOnlyList<AdvancedKey> AdvancedKeys { get; set; }
     public required IReadOnlyList<Macro> Macro { get; set; }
 }
 
@@ -20,6 +19,67 @@ public sealed record Detail
 {
     public required string Name { get; set; }
 }
+
+public class AdvancedKey
+{
+    public required string Type { get; set; }
+    public required int Layer { get; set; }
+    public required int Index1 { get; set; }
+    public Tglkey? TglKey { get; set; }
+    public int? Index2 { get; set; }
+    public AdvancedKeySettings? Key1 { get; set; }
+    public AdvancedKeySettings? Key2 { get; set; }
+    public Option? Option { get; set; }
+    public IReadOnlyCollection<DksKey>? DksKeys { get; set; }
+    public AdvancedKeySimpleSettings? MtClickKey { get; set; }
+    public AdvancedKeySimpleSettings? MtDownKey { get; set; }
+    public int? MtTime { get; set; }
+}
+
+public class Tglkey
+{
+    public required int Type { get; set; }
+    public required int Code1 { get; set; }
+    public required int Code2 { get; set; }
+    public required string Name { get; set; }
+}
+
+public class AdvancedKeySettings
+{
+    public required int Type { get; set; }
+    public required int Code1 { get; set; }
+    public required int Code2 { get; set; }
+    public required int Code { get; set; }
+    public required string Name { get; set; }
+    [JsonPropertyName("i")]
+    public required int Index { get; set; }
+    public required int Profile { get; set; }
+    public required int Layer { get; set; }
+}
+
+public class Option
+{
+    public required int Actuation { get; set; }
+    public int? Priority { get; set; }
+}
+
+public class AdvancedKeySimpleSettings
+{
+    public required int Type { get; set; }
+    public required int Code1 { get; set; }
+    public required int Code2 { get; set; }
+    public required int Code3 { get; set; }
+}
+
+public class DksKey
+{
+    public required AdvancedKeySimpleSettings Key { get; set; }
+    public required int DownStart { get; set; }
+    public required int DownEnd { get; set; }
+    public required int UpStart { get; set; }
+    public required int UpEnd { get; set; }
+}
+
 
 public sealed record UserKeys
 {
@@ -113,6 +173,5 @@ public sealed record Macro
     public required string Id { get; set; }
     public required string Name { get; set; }
     public required int Type { get; set; }
-    // Not supported
     public required IReadOnlyList<MacroAction> MacroActions { get; set; }
 }
