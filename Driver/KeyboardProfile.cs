@@ -38,11 +38,11 @@ public sealed record UserKey
     public required int Type { get; set; }
     public required int Code1 { get; set; }
     public required int Code2 { get; set; }
-    public required int Code { get; set; }
-    public required string Name { get; set; }
-    public required int Index { get; set; }
-    public required int Profile { get; set; }
-    public required int Layer { get; set; }
+    public int? Code { get; set; }
+    public string? Name { get; set; }
+    public int? Index { get; set; }
+    public int? Profile { get; set; }
+    public int? Layer { get; set; }
 }
 
 public sealed record Light
@@ -99,11 +99,20 @@ public sealed record TravelKey
     public required bool DeadzoneStatus { get; set; }
 }
 
+public sealed record MacroAction
+{
+    public required string Type { get; set; }
+    public int? Code { get; set; }
+    public string? Action { get; set; }
+    public string? WebCode { get; set; }
+    public int? Delay { get; set; }
+}
+
 public sealed record Macro
 {
     public required string Id { get; set; }
     public required string Name { get; set; }
     public required int Type { get; set; }
     // Not supported
-    public required IReadOnlyList<object> MacroActions { get; set; }
+    public required IReadOnlyList<MacroAction> MacroActions { get; set; }
 }

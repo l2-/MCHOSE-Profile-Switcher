@@ -1,7 +1,7 @@
 {
   "productInfo": {
     "productName": "Jet75",
-    "exportTime": "2025-07-25T22:30:58.267Z",
+    "exportTime": "2025-07-27T22:32:36.639Z",
     "version": "1.0"
   },
   "detail": {
@@ -80,14 +80,9 @@
         "layer": 0
       },
       {
-        "type": 16,
-        "code1": 0,
-        "code2": 55,
-        "code": -1,
-        "name": ". >",
-        "index": 7,
-        "profile": 0,
-        "layer": 0
+        "type": 147,
+        "code1": 1,
+        "code2": 17
       },
       {
         "type": 16,
@@ -170,24 +165,19 @@
         "layer": 0
       },
       {
-        "type": 16,
+        "type": 145,
         "code1": 0,
-        "code2": 27,
+        "code2": 0,
         "code": -1,
-        "name": "X",
+        "name": "TGL",
         "index": 16,
         "profile": 0,
         "layer": 0
       },
       {
-        "type": 16,
+        "type": 147,
         "code1": 0,
-        "code2": 54,
-        "code": -1,
-        "name": ", <",
-        "index": 17,
-        "profile": 0,
-        "layer": 0
+        "code2": 7
       },
       {
         "type": 16,
@@ -650,14 +640,9 @@
         "layer": 0
       },
       {
-        "type": 16,
-        "code1": 0,
-        "code2": 48,
-        "code": -1,
-        "name": "] }",
-        "index": 64,
-        "profile": 0,
-        "layer": 0
+        "type": 148,
+        "code1": 3,
+        "code2": 74
       },
       {
         "type": 16,
@@ -690,14 +675,9 @@
         "layer": 0
       },
       {
-        "type": 16,
+        "type": 144,
         "code1": 0,
-        "code2": 51,
-        "code": -1,
-        "name": "; :",
-        "index": 68,
-        "profile": 0,
-        "layer": 0
+        "code2": 0
       },
       {
         "type": 16,
@@ -720,11 +700,11 @@
         "layer": 0
       },
       {
-        "type": 16,
+        "type": 112,
         "code1": 0,
-        "code2": 26,
+        "code2": 1,
         "code": -1,
-        "name": "W",
+        "name": "M1",
         "index": 71,
         "profile": 0,
         "layer": 0
@@ -750,14 +730,9 @@
         "layer": 0
       },
       {
-        "type": 16,
-        "code1": 0,
-        "code2": 47,
-        "code": -1,
-        "name": "[ {",
-        "index": 74,
-        "profile": 0,
-        "layer": 0
+        "type": 148,
+        "code1": 2,
+        "code2": 64
       },
       {
         "type": 16,
@@ -790,14 +765,9 @@
         "layer": 0
       },
       {
-        "type": 16,
-        "code1": 0,
-        "code2": 52,
-        "code": -1,
-        "name": "' \"",
-        "index": 78,
-        "profile": 0,
-        "layer": 0
+        "type": 146,
+        "code1": 4,
+        "code2": 44
       },
       {
         "type": 16,
@@ -5245,6 +5215,111 @@
     },
     {
       "switchType": 0,
+      "keyMode": 1,
+      "isolated": 2,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 109,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 50,
+      "rtRelease": 50,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 0,
+      "isolated": 0,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 150,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 50,
+      "rtRelease": 50,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 0,
+      "isolated": 0,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 150,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 50,
+      "rtRelease": 50,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 1,
+      "isolated": 7,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 31,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 10,
+      "rtRelease": 10,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 1,
+      "isolated": 7,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 31,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 10,
+      "rtRelease": 10,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 0,
+      "isolated": 0,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 150,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 50,
+      "rtRelease": 50,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
+      "keyMode": 0,
+      "isolated": 0,
+      "priority": 0,
+      "key_max_length": 4,
+      "keyActuation": 150,
+      "pressPrecision": 0,
+      "releasePrecision": 0,
+      "rtPress": 50,
+      "rtRelease": 50,
+      "pressDeadzone": 0,
+      "releaseDeadzone": 0,
+      "deadzoneStatus": false
+    },
+    {
+      "switchType": 0,
       "keyMode": 0,
       "isolated": 0,
       "priority": 0,
@@ -5291,40 +5366,10 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 0,
+      "isolated": 2,
       "priority": 0,
       "key_max_length": 4,
-      "keyActuation": 31,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 10,
-      "rtRelease": 10,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 1,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 31,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 10,
-      "rtRelease": 10,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
+      "keyActuation": 109,
       "pressPrecision": 0,
       "releasePrecision": 0,
       "rtPress": 50,
@@ -5756,82 +5801,7 @@
     {
       "switchType": 0,
       "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 50,
-      "rtRelease": 50,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 50,
-      "rtRelease": 50,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 50,
-      "rtRelease": 50,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 50,
-      "rtRelease": 50,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
-      "priority": 0,
-      "key_max_length": 4,
-      "keyActuation": 150,
-      "pressPrecision": 0,
-      "releasePrecision": 0,
-      "rtPress": 50,
-      "rtRelease": 50,
-      "pressDeadzone": 0,
-      "releaseDeadzone": 0,
-      "deadzoneStatus": false
-    },
-    {
-      "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
+      "isolated": 4,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 103,
@@ -6056,7 +6026,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 0,
+      "isolated": 7,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -6100,11 +6070,11 @@
     },
     {
       "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
+      "keyMode": 1,
+      "isolated": 2,
       "priority": 0,
       "key_max_length": 4,
-      "keyActuation": 150,
+      "keyActuation": 84,
       "pressPrecision": 0,
       "releasePrecision": 0,
       "rtPress": 50,
@@ -6206,7 +6176,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 0,
+      "isolated": 7,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -6250,11 +6220,11 @@
     },
     {
       "switchType": 0,
-      "keyMode": 0,
-      "isolated": 0,
+      "keyMode": 1,
+      "isolated": 2,
       "priority": 0,
       "key_max_length": 4,
-      "keyActuation": 150,
+      "keyActuation": 84,
       "pressPrecision": 0,
       "releasePrecision": 0,
       "rtPress": 50,
@@ -7180,13 +7150,317 @@
       ""
     ]
   },
-  "advancedKeys": [],
+  "advancedKeys": [
+    {
+      "type": "tgl",
+      "layer": 0,
+      "index1": 16,
+      "tglKey": {
+        "type": 16,
+        "code1": 0,
+        "code2": 18,
+        "name": "O"
+      }
+    },
+    {
+      "type": "rs",
+      "layer": 0,
+      "index1": 17,
+      "index2": 7,
+      "key1": {
+        "type": 16,
+        "code1": 0,
+        "code2": 54,
+        "code": 54,
+        "name": ", <",
+        "i": 17,
+        "profile": 0,
+        "layer": 0
+      },
+      "key2": {
+        "type": 16,
+        "code1": 0,
+        "code2": 55,
+        "code": 55,
+        "name": ". >",
+        "i": 7,
+        "profile": 0,
+        "layer": 0
+      }
+    },
+    {
+      "type": "socd",
+      "layer": 0,
+      "index1": 74,
+      "index2": 64,
+      "key1": {
+        "type": 16,
+        "code1": 0,
+        "code2": 47,
+        "code": 47,
+        "name": "[ {",
+        "i": 74,
+        "profile": 0,
+        "layer": 0
+      },
+      "key2": {
+        "type": 16,
+        "code1": 0,
+        "code2": 48,
+        "code": 48,
+        "name": "] }",
+        "i": 64,
+        "profile": 0,
+        "layer": 0
+      },
+      "option": {
+        "actuation": 84,
+        "priority": 0
+      }
+    },
+    {
+      "type": "dks",
+      "index1": 68,
+      "dksKeys": [
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 4,
+            "code3": 0
+          },
+          "downStart": 1,
+          "downEnd": 0,
+          "upStart": 1,
+          "upEnd": 0
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 5,
+            "code3": 0
+          },
+          "downStart": 1,
+          "downEnd": 1,
+          "upStart": 0,
+          "upEnd": 1
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 6,
+            "code3": 0
+          },
+          "downStart": 1,
+          "downEnd": 1,
+          "upStart": 1,
+          "upEnd": 0
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 7,
+            "code3": 0
+          },
+          "downStart": 1,
+          "downEnd": 0,
+          "upStart": 0,
+          "upEnd": 1
+        }
+      ],
+      "option": {
+        "actuation": 1500
+      },
+      "layer": 0,
+      "key1": {
+        "type": 16,
+        "code1": 0,
+        "code2": 51,
+        "code": 51,
+        "name": "; :",
+        "i": 68,
+        "profile": 0,
+        "layer": 0
+      }
+    },
+    {
+      "type": "mt",
+      "layer": 0,
+      "index1": 78,
+      "key1": {
+        "type": 16,
+        "code1": 0,
+        "code2": 52,
+        "code": 52,
+        "name": "' \"",
+        "i": 78,
+        "profile": 0,
+        "layer": 0
+      },
+      "mtClickKey": {
+        "type": 16,
+        "code1": 0,
+        "code2": 6,
+        "code3": 0
+      },
+      "mtDownKey": {
+        "type": 16,
+        "code1": 0,
+        "code2": 5,
+        "code3": 0
+      },
+      "mtTime": 449
+    }
+  ],
   "macro": [
     {
       "id": "0",
       "name": "M1",
       "type": 1,
-      "macroActions": []
+      "macroActions": [
+        {
+          "id": "0",
+          "type": "action",
+          "code": 11,
+          "webCode": "KeyH",
+          "action": "keydown"
+        },
+        {
+          "id": "1",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "2",
+          "type": "action",
+          "code": 11,
+          "webCode": "KeyH",
+          "action": "keyup"
+        },
+        {
+          "id": "3",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "4",
+          "type": "action",
+          "code": 8,
+          "webCode": "KeyE",
+          "action": "keydown"
+        },
+        {
+          "id": "5",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "6",
+          "type": "action",
+          "code": 8,
+          "webCode": "KeyE",
+          "action": "keyup"
+        },
+        {
+          "id": "7",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "8",
+          "type": "action",
+          "code": 15,
+          "webCode": "KeyL",
+          "action": "keydown"
+        },
+        {
+          "id": "9",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "10",
+          "type": "action",
+          "code": 15,
+          "webCode": "KeyL",
+          "action": "keyup"
+        },
+        {
+          "id": "11",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "12",
+          "type": "action",
+          "code": 15,
+          "webCode": "KeyL",
+          "action": "keydown"
+        },
+        {
+          "id": "13",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "14",
+          "type": "action",
+          "code": 15,
+          "webCode": "KeyL",
+          "action": "keyup"
+        },
+        {
+          "id": "15",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "16",
+          "type": "action",
+          "code": 18,
+          "webCode": "KeyO",
+          "action": "keydown"
+        },
+        {
+          "id": "17",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "18",
+          "type": "action",
+          "code": 18,
+          "webCode": "KeyO",
+          "action": "keyup"
+        },
+        {
+          "id": "19",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "20",
+          "type": "action",
+          "code": 29441,
+          "webCode": "0",
+          "action": "mousedown"
+        },
+        {
+          "id": "21",
+          "type": "time",
+          "delay": 50
+        },
+        {
+          "id": "22",
+          "type": "action",
+          "code": 29441,
+          "webCode": "0",
+          "action": "mouseup"
+        }
+      ]
     },
     {
       "id": "1",

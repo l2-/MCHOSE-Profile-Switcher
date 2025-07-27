@@ -3,7 +3,7 @@ using Common;
 
 namespace Driver.Test;
 
-public class Packets_specs
+public partial class Packets_specs
 {
     private KeyboardProfile cs2Profile;
     private readonly byte[] baseKeyboardConfig = [80, 0, 170, 187, 1, 1, 0, 12, 19, 100, 4, 1, 1, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 2, 0, 0, 255, 0, 0, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16];
