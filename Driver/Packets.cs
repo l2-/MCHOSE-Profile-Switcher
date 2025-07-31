@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Driver;
 
@@ -147,7 +148,10 @@ public static class Packets
     // Seriously what the fuck is this packet layout MCHOSE
     public static Command CreateSetMacro(IReadOnlyCollection<Macro> macros, int profileIndex = INDEX)
     {
-        var lists = macros.Select(CreateMacroCommand).Zip(macros).Select((pair) => (pair.Second.Type, pair.First)).ToArray<(int Type, List<(int Code, string Action, int Delay)> List)>();
+        var lists = macros.Select(CreateMacroCommand)
+            .Zip(macros)
+            .Select((pair) => (pair.Second.Type, pair.First))
+            .ToArray<(int Type, List<(int Code, string Action, int Delay)> List)>();
         var listCountsAggregate = new int[lists.Length];
         for (int i = 0; i < listCountsAggregate.Length - 1; i++)
         {
@@ -179,13 +183,72 @@ public static class Packets
         }
         byte[] command = [.. a, 0, 0, 128, 0, .. o];
         var packets = ToPackets(CommandType.SetMacro.As(), 2048 * profileIndex, command);
-        if (lists.Any(item => item.List.Count > 0))
-        {
-            Console.WriteLine("Using macros is experimental and not verified!!");
-        }
         return new() { Packets = packets, };
     }
 
-    public static Command CreateSetAllTglKeyInfo(IReadOnlyCollection<object> l)
-        => new () { Packets = [] };
+    public static Command CreateSetAllTglKeyInfo(IReadOnlyCollection<Tglkey> tglKeys, int profileIndex = INDEX)
+    {
+        var command = RightPad([.. tglKeys.SelectMany(tglKey => new byte[] { (byte)tglKey.Type, (byte)tglKey.Code1, (byte)tglKey.Code2 })], 128);
+        var packets = ToPackets(CommandType.SetTglKeyInfo.As(), 128 * profileIndex, command);
+        return new() { Packets = packets };
+    }
+
+    public static Command CreateSetAllMtKeyInfo(IReadOnlyCollection<(AdvancedKeySimpleSettings MtClickKey, AdvancedKeySimpleSettings MtDownKey)> mtKeys, int profileIndex = INDEX)
+    {
+        var command = RightPad([.. mtKeys.SelectMany(mtKey => new byte[] { (byte)mtKey.MtClickKey.Type, (byte)mtKey.MtClickKey.Code1, (byte)mtKey.MtClickKey.Code2, (byte)mtKey.MtDownKey.Type, (byte)mtKey.MtDownKey.Code1, (byte)mtKey.MtDownKey.Code2 })], 256);
+        var packets = ToPackets(CommandType.SetMtKeyInfo.As(), 256 * profileIndex, command);
+        return new() { Packets = packets };
+    }
+
+    private static byte DksStatusToBit(int state)
+        => (byte)((state > 0 ? 1 : 0) | ((state > 1 ? 1 : 0) << 1) | ((state > 2 ? 1 : 0) << 2));
+
+    private static byte[] PacketForDksKeySetting(IReadOnlyCollection<int>? DksPoints, IReadOnlyCollection<DksKey> DksKeys)
+    {
+        var dksPoint1 = (byte)(DksPoints?.First() ?? 10);
+        var dksPoint2 = (byte)(DksPoints?.Skip(1).First() ?? 30);
+        var dksPoint3 = (byte)(DksPoints?.Skip(2).First() ?? 30);
+        var dksPoint4 = (byte)(DksPoints?.Skip(3).First() ?? 10);
+        byte[] packet = [dksPoint1, dksPoint2, dksPoint3, dksPoint4,
+            .. DksKeys.SelectMany(dksKey =>
+            {
+                var downStart = dksKey.DownStart;
+                var downEnd = dksKey.DownEnd;
+                var upStart = dksKey.UpStart;
+                var upEnd = dksKey.UpEnd;
+                if (dksKey.DownStart == 4)
+                {
+                    downStart = 3;
+                    downEnd = 3;
+                    upStart = 2;
+                }
+                if (dksKey.DownStart == 3)
+                {
+                    downStart = 3;
+                    downEnd = 2;
+                }
+                if (dksKey.DownEnd == 3)
+                {
+                    upStart = 2;
+                }
+                var downStartBit = DksStatusToBit(downStart);
+                var downEndBit = DksStatusToBit(downEnd);
+                var upStartBit = DksStatusToBit(upStart);
+                var upEndBit = DksStatusToBit(upEnd);
+                var full = (7 & downStartBit) | ((downEndBit << 3) & 56) | ((upStartBit << 6) & 448) | ((upEndBit << 9) & 512);
+                var (s, l) = SplitToTwoBytes(full);
+                return new byte[] { (byte)dksKey.Key.Type, (byte)dksKey.Key.Code1, (byte)dksKey.Key.Code2, s, l };
+            })];
+        return RightPad(packet, 24);
+    }
+
+    public static Command CreateSetAllDksKeyInfo(
+        IReadOnlyCollection<(IReadOnlyCollection<int>? DksPoints, IReadOnlyCollection<DksKey> DksKeys)> advancedKeys,
+        int profileIndex = INDEX)
+    {
+        var command = RightPad([.. advancedKeys
+            .SelectMany(key => PacketForDksKeySetting(key.DksPoints, key.DksKeys))], 768);
+        var packets = ToPackets(CommandType.SetDksKeyInfo.As(), 768 * profileIndex, command);
+        return new() { Packets = packets };
+    }
 }

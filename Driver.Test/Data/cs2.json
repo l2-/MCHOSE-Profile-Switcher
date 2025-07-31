@@ -1,11 +1,11 @@
 {
   "productInfo": {
     "productName": "Jet75",
-    "exportTime": "2025-07-27T22:32:36.639Z",
+    "exportTime": "2025-07-30T23:42:09.207Z",
     "version": "1.0"
   },
   "detail": {
-    "name": "cs2"
+    "name": "test"
   },
   "userKeys": {
     "0": [
@@ -82,7 +82,12 @@
       {
         "type": 147,
         "code1": 1,
-        "code2": 17
+        "code2": 17,
+        "code": -1,
+        "name": "RS",
+        "index": 7,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -177,7 +182,12 @@
       {
         "type": 147,
         "code1": 0,
-        "code2": 7
+        "code2": 7,
+        "code": -1,
+        "name": "RS",
+        "index": 17,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -480,11 +490,11 @@
         "layer": 0
       },
       {
-        "type": 16,
-        "code1": 0,
-        "code2": 15,
+        "type": 144,
+        "code1": 1,
+        "code2": 0,
         "code": -1,
-        "name": "L",
+        "name": "DKS",
         "index": 48,
         "profile": 0,
         "layer": 0
@@ -642,7 +652,12 @@
       {
         "type": 148,
         "code1": 3,
-        "code2": 74
+        "code2": 74,
+        "code": -1,
+        "name": "SOCD",
+        "index": 64,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -677,7 +692,12 @@
       {
         "type": 144,
         "code1": 0,
-        "code2": 0
+        "code2": 0,
+        "code": -1,
+        "name": "DKS",
+        "index": 68,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -732,7 +752,12 @@
       {
         "type": 148,
         "code1": 2,
-        "code2": 64
+        "code2": 64,
+        "code": -1,
+        "name": "SOCD",
+        "index": 74,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -767,7 +792,12 @@
       {
         "type": 146,
         "code1": 4,
-        "code2": 44
+        "code2": 44,
+        "code": -1,
+        "name": "MT",
+        "index": 78,
+        "profile": 0,
+        "layer": 0
       },
       {
         "type": 16,
@@ -5216,7 +5246,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 2,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 109,
@@ -5261,7 +5291,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 7,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -5276,7 +5306,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 7,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -5366,7 +5396,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 2,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 109,
@@ -5801,7 +5831,7 @@
     {
       "switchType": 0,
       "keyMode": 0,
-      "isolated": 4,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 103,
@@ -6026,7 +6056,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 7,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -6071,7 +6101,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 2,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 84,
@@ -6176,7 +6206,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 7,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 31,
@@ -6221,7 +6251,7 @@
     {
       "switchType": 0,
       "keyMode": 1,
-      "isolated": 2,
+      "isolated": 0,
       "priority": 0,
       "key_max_length": 4,
       "keyActuation": 84,
@@ -7047,6 +7077,15 @@
     "side_singleColor": 0,
     "side_hexColor": "#ff0000"
   },
+  "sideLight": {
+    "side_effect": 0,
+    "side_brightness": 100,
+    "side_speed": 4,
+    "side_sleep": 20,
+    "side_direct": 0,
+    "side_superRet": 0,
+    "side_light": 1
+  },
   "globalTravel": {
     "actuation": 100,
     "pressDeadzone": 0,
@@ -7152,6 +7191,29 @@
   },
   "advancedKeys": [
     {
+      "type": "rs",
+      "layer": 0,
+      "index1": 7,
+      "index2": 17,
+      "key1": {
+        "type": 16,
+        "code1": 0,
+        "code2": 54,
+        "name": ", <"
+      },
+      "key2": {
+        "type": 16,
+        "code1": 0,
+        "code2": 55,
+        "name": ". >"
+      },
+      "option": {
+        "actuation": 150,
+        "priority": 0,
+        "repidTrigger": false
+      }
+    },
+    {
       "type": "tgl",
       "layer": 0,
       "index1": 16,
@@ -7163,71 +7225,106 @@
       }
     },
     {
-      "type": "rs",
+      "type": "dks",
       "layer": 0,
-      "index1": 17,
-      "index2": 7,
-      "key1": {
-        "type": 16,
-        "code1": 0,
-        "code2": 54,
-        "code": 54,
-        "name": ", <",
-        "i": 17,
-        "profile": 0,
-        "layer": 0
-      },
-      "key2": {
-        "type": 16,
-        "code1": 0,
-        "code2": 55,
-        "code": 55,
-        "name": ". >",
-        "i": 7,
-        "profile": 0,
-        "layer": 0
-      }
+      "index1": 48,
+      "dksPoint": [
+        10,
+        30,
+        30,
+        10
+      ],
+      "dksKeys": [
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 30,
+            "name": "1 !"
+          },
+          "downStart": 1,
+          "downEnd": 0,
+          "upStart": 0,
+          "upEnd": 1
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 31,
+            "name": "2 @"
+          },
+          "downStart": 0,
+          "downEnd": 1,
+          "upStart": 0,
+          "upEnd": 1
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 32,
+            "name": "3 #"
+          },
+          "downStart": 1,
+          "downEnd": 0,
+          "upStart": 1,
+          "upEnd": 0
+        },
+        {
+          "key": {
+            "type": 16,
+            "code1": 0,
+            "code2": 33,
+            "name": "4 $"
+          },
+          "downStart": 0,
+          "downEnd": 1,
+          "upStart": 1,
+          "upEnd": 0
+        }
+      ]
     },
     {
       "type": "socd",
       "layer": 0,
-      "index1": 74,
-      "index2": 64,
+      "index1": 64,
+      "index2": 74,
       "key1": {
         "type": 16,
         "code1": 0,
         "code2": 47,
-        "code": 47,
-        "name": "[ {",
-        "i": 74,
-        "profile": 0,
-        "layer": 0
+        "name": "[ {"
       },
       "key2": {
         "type": 16,
         "code1": 0,
         "code2": 48,
-        "code": 48,
-        "name": "] }",
-        "i": 64,
-        "profile": 0,
-        "layer": 0
+        "name": "] }"
       },
       "option": {
-        "actuation": 84,
-        "priority": 0
+        "actuation": 150,
+        "priority": 0,
+        "repidTrigger": false
       }
     },
     {
       "type": "dks",
+      "layer": 0,
       "index1": 68,
+      "dksPoint": [
+        10,
+        30,
+        30,
+        10
+      ],
       "dksKeys": [
         {
           "key": {
             "type": 16,
             "code1": 0,
             "code2": 4,
-            "code3": 0
+            "name": "A"
           },
           "downStart": 1,
           "downEnd": 0,
@@ -7239,7 +7336,7 @@
             "type": 16,
             "code1": 0,
             "code2": 5,
-            "code3": 0
+            "name": "B"
           },
           "downStart": 1,
           "downEnd": 1,
@@ -7251,7 +7348,7 @@
             "type": 16,
             "code1": 0,
             "code2": 6,
-            "code3": 0
+            "name": "C"
           },
           "downStart": 1,
           "downEnd": 1,
@@ -7263,56 +7360,32 @@
             "type": 16,
             "code1": 0,
             "code2": 7,
-            "code3": 0
+            "name": "D"
           },
           "downStart": 1,
           "downEnd": 0,
           "upStart": 0,
           "upEnd": 1
         }
-      ],
-      "option": {
-        "actuation": 1500
-      },
-      "layer": 0,
-      "key1": {
-        "type": 16,
-        "code1": 0,
-        "code2": 51,
-        "code": 51,
-        "name": "; :",
-        "i": 68,
-        "profile": 0,
-        "layer": 0
-      }
+      ]
     },
     {
       "type": "mt",
       "layer": 0,
       "index1": 78,
-      "key1": {
+      "mtDownKey": {
         "type": 16,
         "code1": 0,
-        "code2": 52,
-        "code": 52,
-        "name": "' \"",
-        "i": 78,
-        "profile": 0,
-        "layer": 0
+        "code2": 5,
+        "name": "B"
       },
       "mtClickKey": {
         "type": 16,
         "code1": 0,
         "code2": 6,
-        "code3": 0
+        "name": "C"
       },
-      "mtDownKey": {
-        "type": 16,
-        "code1": 0,
-        "code2": 5,
-        "code3": 0
-      },
-      "mtTime": 449
+      "mtTime": 440
     }
   ],
   "macro": [
