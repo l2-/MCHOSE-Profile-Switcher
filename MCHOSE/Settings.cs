@@ -1,11 +1,10 @@
-﻿using MCHOSE;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Path = System.IO.Path;
 
-namespace MCHOSEUI;
+namespace UI;
 
 public record Settings() : INotifyPropertyChanged
 {

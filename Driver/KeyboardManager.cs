@@ -1,5 +1,4 @@
 ﻿using HidSharp;
-using HidSharp.Reports;
 
 namespace Driver;
 
@@ -87,10 +86,13 @@ public sealed class KeyboardManager : IDisposable
 
     private void OnDeviceListChanged(object? sender, DeviceListChangedEventArgs e)
     {
-        if (KeyboardWithSpecs is { } keyboard && keyboard.Keyboard.CanOpen) return;
+        if (KeyboardWithSpecs is { } keyboard && keyboard.Keyboard.CanOpen && IsConnected(keyboard.Keyboard)) return;
 
         KeyboardWithSpecs = FindKeyboard();
     }
+
+    private static bool IsConnected(HidDevice device)
+        => DeviceList.Local.GetHidDevices().Any(_device => _device == device);
 
     private static KeyboardWithSpecs? FindKeyboard()
     {
@@ -108,6 +110,7 @@ public sealed class KeyboardManager : IDisposable
             Console.WriteLine("Supported keyboard {0} found but firmware version {1} lower than minimum required {2}", kb.GetFriendlyName(), specs.Info.FirmwareVersion, SUPPORTED_FW_VERSION_MIN);
             return null;
         }
+        Console.WriteLine("Keyboard found {0}", keyboard.GetFriendlyName());
         return (keyboard, specs);
     }
 

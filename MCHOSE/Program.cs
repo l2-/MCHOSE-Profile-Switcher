@@ -1,12 +1,13 @@
 ﻿using Driver;
+using MCHOSEUI;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace MCHOSE;
+namespace UI;
 
 public partial class Program
 {
-    public static readonly string APP_DIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.GetFileNameWithoutExtension(Environment.ProcessPath ?? "MCHOSE UI"));
+    public static readonly string APP_DIR = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.GetFileNameWithoutExtension(Environment.ProcessPath ?? "MCHOSEUI"));
 
     [LibraryImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
@@ -22,14 +23,16 @@ public partial class Program
         }
         if (args.Contains("--start-minimized"))
         {
-            //MainWindow.ShouldStartMinimized = true;
+            MainWindow.ShouldStartMinimized = true;
+        }
+        if (args.Contains("--debug-packets"))
+        {
+            HIDDeviceExtensions.WRITE_PACKET_INFO_TO_CONSOLE = true;
         }
 
-        using var _ = new KeyboardManager();
-
-        //App app = new();
-        //app.InitializeComponent();
-        //app.Run();
-        //App.Application_Exit();
+        App app = new();
+        app.InitializeComponent();
+        app.Run();
+        App.Application_Exit();
     }
 }

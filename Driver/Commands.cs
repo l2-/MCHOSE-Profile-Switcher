@@ -1,7 +1,21 @@
 ﻿namespace Driver;
 
-public static class KeyboardProfileExtensions
+public static class Commands
 {
+    public static IReadOnlyCollection<Command> PushProfileCommands(this KeyboardProfile keyboardProfile, byte[] baseKeyboardConfig)
+        => [
+            keyboardProfile.CreateSetLightCommand(baseKeyboardConfig),
+            keyboardProfile.CreateSetAllUserKeys(0),
+            keyboardProfile.CreateSetAllUserKeys(1),
+            keyboardProfile.CreateSetAllUserKeys(2),
+            keyboardProfile.CreateSetAllUserKeys(3),
+            keyboardProfile.CreateSetTravelKeys(),
+            keyboardProfile.CreateSetMacro(),
+            keyboardProfile.CreateSetAllTglKeyInfo(),
+            keyboardProfile.CreateSetAllMtKeyInfo(),
+            keyboardProfile.CreateSetAllDksKeyInfo(),
+            ];
+
     public static Command CreateSetLightCommand(this KeyboardProfile keyboardProfile, byte[] baseKeyboardConfig)
         => Packets.CreateSetLightCommand(baseKeyboardConfig, keyboardProfile.Light);
 

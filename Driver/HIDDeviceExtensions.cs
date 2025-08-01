@@ -1,4 +1,5 @@
 ﻿using HidSharp;
+using System.Diagnostics;
 
 namespace Driver;
 
@@ -15,6 +16,7 @@ public sealed record Info
 public static class HIDDeviceExtensions
 {
     private const bool USE_HEX_FORMATTING = false;
+    public static bool WRITE_PACKET_INFO_TO_CONSOLE { get; set; } = false;
 
     public static Info? GetInfo(this HidStream stream)
     {
@@ -43,6 +45,17 @@ public static class HIDDeviceExtensions
         var @base = stream.GetBase();
         if (@base is null) return null;
         return new KeyboardSpecs { Base = @base, Info = info };
+    }
+
+    public static void PushProfile(this HidStream stream, KeyboardProfile keyboardProfile)
+    {
+        var timer = new Stopwatch();
+        timer.Start();
+
+        var @base = stream.GetKeyboardBasePacket();
+        var commands = keyboardProfile.PushProfileCommands(@base);
+        stream.WriteCommands(commands);
+        Console.WriteLine("Pushed profile {0} - {1} packets in {2}ms", keyboardProfile.Detail.Name, commands.Sum(c => c.Packets.Count), timer.ElapsedMilliseconds);
     }
 
     public static byte[] GetKeyboardBasePacket(this HidStream stream)
@@ -77,7 +90,10 @@ public static class HIDDeviceExtensions
         {
             Console.WriteLine(string.Format("Packet {0}, probably should be of length 64. {1}", PacketToString(packet), new System.Diagnostics.StackTrace()));
         }
-        Console.WriteLine("Writing packet \t{0}", packet.PacketToString());
+        if (WRITE_PACKET_INFO_TO_CONSOLE)
+        {
+            Console.WriteLine("Writing packet \t{0}", packet.PacketToString());
+        }
         try
         {
             stream.Write([0, .. packet]);
@@ -89,7 +105,10 @@ public static class HIDDeviceExtensions
         try
         {
             var response = stream.Read()[1..];
-            Console.WriteLine("Received packet {0}", response.ToArray().PacketToString());
+            if (WRITE_PACKET_INFO_TO_CONSOLE)
+            {
+                Console.WriteLine("Received packet {0}", response.ToArray().PacketToString());
+            }
             return [.. response];
         }
         catch (Exception ex)

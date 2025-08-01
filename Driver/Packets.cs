@@ -70,7 +70,7 @@ public static class Packets
         command[9] = (byte)light.Brightness;
         command[10] = (byte)(4 - light.Speed).Clamp(0, 4);
         command[11] = (byte)light.Direction;
-        command[12] = (byte)(light.SingleColor is 1 ? 0 : 1);
+        command[12] = (byte)(light.SingleColor ? 0 : 1);
         var packets = ToPackets(CommandType.Lighting.As(), profileIndex * PROFILE_INDEX_SHIFT, command);
         return new() { Packets = packets };
     }

@@ -1,6 +1,5 @@
 ﻿using Driver;
 using HidSharp;
-using MCHOSE;
 using MCHOSEUI.Extensions;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,7 +7,7 @@ using System.Data;
 using System.IO;
 using System.Text.Json;
 
-namespace MCHOSEUI.Profile;
+namespace UI.Profile;
 
 public sealed class ProfileManager(KeyboardManager keyboardManager, Settings settings)
 {
@@ -18,7 +17,19 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
     private readonly string profileDir = Path.Combine(Program.APP_DIR, "profiles");
     private readonly KeyboardManager keyboardManager = keyboardManager;
     private readonly Settings settings = settings;
+    private int lastIndex = -1;
     private int currentIndex = -1;
+    public bool ProcessMatch { get; private set; } = false;
+    private static readonly System.Threading.Lock writePacketLock = new();
+
+    public Driver.Profile? LastProfile
+    {
+        get
+        {
+            return lastIndex >= 0 && lastIndex < Profiles.Count ? Profiles[lastIndex] : null;
+        }
+    }
+
     public int CurrentIndex
     {
         get { return currentIndex; }
@@ -26,6 +37,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         {
             if (!EqualityComparer<int>.Default.Equals(currentIndex, value))
             {
+                lastIndex = currentIndex;
                 currentIndex = value;
                 CurrentProfileChanged?.Invoke(currentIndex, Profiles[currentIndex]);
             }
@@ -45,7 +57,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
             Profiles.Add(profile);
         }
         ProfileCollectionChanged?.Invoke(discoveredProfiles);
-        ProfileFileNames = Profiles.Select(p => Tuple.Create(p, p.Name)).ToList();
+        ProfileFileNames = [.. Profiles.Select(p => Tuple.Create(p, p.Name))];
         if (settings.LastProfileUsedName is { } s && !s.Equals(string.Empty))
         {
             var current = Profiles.FindIndex(p => p.Name.Equals(s));
@@ -60,6 +72,14 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
                 {
                     CurrentIndex = current;
                 }
+            }
+        }
+        else
+        {
+            var current = Math.Max(Profiles.FindIndex(p => p.IsDefault), 0);
+            if (current >= 0 && current != CurrentIndex && current < Profiles.Count)
+            {
+                CurrentIndex = current;
             }
         }
     }
@@ -86,7 +106,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         try
         {
             var text = File.ReadAllText(path);
-            var profile = JsonSerializer.Deserialize<Driver.KeyboardProfile>(text, options);
+            var profile = JsonSerializer.Deserialize<KeyboardProfile>(text, options);
             if (profile is null) { Console.WriteLine("Failed importing {0}!", path); return; }
             var profileItem = new Driver.Profile
             {
@@ -101,7 +121,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         }
         catch (Exception e)
         {
-            //MessageBox.Show(e.Message);
+            MessageBox.Show(e.Message);
         }
     }
 
@@ -141,22 +161,27 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         }
     }
 
-    public void PushCurrentProfile()
+    public async Task PushCurrentProfile()
     {
-        if (CurrentIndex >= Profiles.Count)
+        await Task.Run(() =>
         {
-            Console.WriteLine("Current profile out of range!");
-            return;
-        }
-        var current = Profiles[CurrentIndex];
-        Console.WriteLine("Pushing profile {0} to keyboard", current.Name);
-        var packets = current.BuildPackets();
-        if (keyboardManager.KeyboardWithSpecs is { } keyboard)
-        {
-            using HidStream stream = keyboard.Keyboard.Open();
-            stream.WriteCommands(packets);
-        }
-        settings.LastProfileUsedName = current.Name;
+            lock (writePacketLock)
+            {
+                if (CurrentIndex >= Profiles.Count)
+                {
+                    Console.WriteLine("Current profile out of range!");
+                    return;
+                }
+                var current = Profiles[CurrentIndex];
+                Console.WriteLine("Pushing profile {0} to keyboard", current.Name);
+                if (keyboardManager.KeyboardWithSpecs is { } keyboard)
+                {
+                    using HidStream stream = keyboard.Keyboard.Open();
+                    stream.PushProfile(current.KeyboardProfile);
+                }
+                settings.LastProfileUsedName = current.Name;
+            }
+        });
     }
 
     public void QuickSwitchProfile()
@@ -167,7 +192,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         var currentIndex = quickSwitchProfiles.IndexOf(current);
         var next = quickSwitchProfiles[(currentIndex + 1) % quickSwitchProfiles.Count];
         Console.WriteLine("Switching from {0} to profile {1}", current.Name, next.Name);
-        SwitchTo(next);
+        SwitchTo(next, false);
     }
 
     public void RemoveProfileItems(params Driver.Profile[] items)
@@ -191,8 +216,9 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
         return Profiles.IndexOf(profileItem) == CurrentIndex;
     }
 
-    public void SwitchTo(Driver.Profile profileItem)
+    public void SwitchTo(Driver.Profile profileItem, bool processMatch)
     {
+        ProcessMatch = processMatch;
         var i = Profiles.IndexOf(profileItem);
         if (i >= 0 && i < Profiles.Count)
         {
