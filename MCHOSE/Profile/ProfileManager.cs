@@ -177,7 +177,7 @@ public sealed class ProfileManager(KeyboardManager keyboardManager, Settings set
                 if (keyboardManager.KeyboardWithSpecs is { } keyboard)
                 {
                     using HidStream stream = keyboard.Keyboard.Open();
-                    stream.PushProfile(current.KeyboardProfile);
+                    stream.PushProfile(current.KeyboardProfile, LastProfile?.KeyboardProfile);
                 }
                 settings.LastProfileUsedName = current.Name;
             }

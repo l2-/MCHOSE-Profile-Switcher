@@ -47,13 +47,20 @@ public static class HIDDeviceExtensions
         return new KeyboardSpecs { Base = @base, Info = info };
     }
 
-    public static void PushProfile(this HidStream stream, KeyboardProfile keyboardProfile)
+    public static void PushProfile(this HidStream stream, KeyboardProfile keyboardProfile, KeyboardProfile? lastProfile)
     {
         var timer = new Stopwatch();
         timer.Start();
 
         var @base = stream.GetKeyboardBasePacket();
         var commands = keyboardProfile.PushProfileCommands(@base);
+        if (lastProfile is { })
+        {
+            // Small optimisation. Try to remove empty packets
+            var lastCommands = lastProfile.PushProfileCommands(@base);
+            var reducedCommands = commands.Reduce(lastCommands);
+            commands = reducedCommands;
+        }
         stream.WriteCommands(commands);
         Console.WriteLine("Pushed profile {0} - {1} packets in {2}ms", keyboardProfile.Detail.Name, commands.Sum(c => c.Packets.Count), timer.ElapsedMilliseconds);
     }
@@ -104,6 +111,7 @@ public static class HIDDeviceExtensions
         }
         try
         {
+            // Read after write is always required otherwise we risk the keyboard chatting on the same line at the same time.
             var response = stream.Read()[1..];
             if (WRITE_PACKET_INFO_TO_CONSOLE)
             {

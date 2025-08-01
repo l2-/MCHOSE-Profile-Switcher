@@ -1,12 +1,11 @@
 ﻿using Common;
-using System;
-using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
 
 namespace Driver;
 
 public sealed record Command
 {
+    public required CommandType Type { get; init; }
+
     public required IReadOnlyCollection<byte[]> Packets { get; set; }
 }
 
@@ -18,8 +17,8 @@ public static class Packets
     const int PAYLOAD_SIZE = 56;
     const int PROFILE_INDEX_SHIFT = 64;
     const byte PACKET_CONST = 85;
-    public static readonly Command InfoCommand = new() { Packets = [Raw(PACKET_CONST, CommandType.Info.As(), 0, 32, 32)] };
-    public static readonly Command BaseCommand = new() { Packets = [Raw(PACKET_CONST, CommandType.Base.As(), 0, 32, 32)] };
+    public static readonly Command InfoCommand = new() { Type = CommandType.Info, Packets = [Raw(PACKET_CONST, CommandType.Info.As(), 0, 32, 32)], };
+    public static readonly Command BaseCommand = new() { Type = CommandType.Base, Packets = [Raw(PACKET_CONST, CommandType.Base.As(), 0, 32, 32)], };
 
     public static byte Sum(this IEnumerable<byte> command)
         => (byte)(command.Sum(s => s) & 255);
@@ -60,7 +59,7 @@ public static class Packets
     public static Command CreateGetKeyboardBasePacket(int profileIndex = INDEX)
     {
         var (a, i) = SplitToTwoBytes(PROFILE_INDEX_SHIFT * profileIndex);
-        return new() { Packets = [RightPad([PACKET_CONST, CommandType.GetBasePacket.As(), 0, Sum([a, i, 56]), 56, a, i], WRITE_PACKET_SIZE)] };
+        return new() { Type = CommandType.GetBasePacket, Packets = [RightPad([PACKET_CONST, CommandType.GetBasePacket.As(), 0, Sum([a, i, 56]), 56, a, i], WRITE_PACKET_SIZE)], };
     }
 
     public static Command CreateSetLightCommand(byte[] baseKeyboardConfig, Light light, int profileIndex = INDEX)
@@ -72,7 +71,7 @@ public static class Packets
         command[11] = (byte)light.Direction;
         command[12] = (byte)(light.SingleColor ? 0 : 1);
         var packets = ToPackets(CommandType.Lighting.As(), profileIndex * PROFILE_INDEX_SHIFT, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.Lighting, Packets = packets };
     }
 
     public static Command CreateSetAllUserKeys(UserKeys userKeys, int layer, int profileIndex = INDEX)
@@ -87,7 +86,7 @@ public static class Packets
         };
         byte[] command = [.. keys.SelectMany(key => new byte[] { (byte)key.Type, (byte)key.Code1, (byte)key.Code2 })];
         var packets = ToPackets(CommandType.SetAllUserKeys.As(), 512 * layer + 3 * 0 + 2048 * profileIndex, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.SetAllUserKeys, Packets = packets };
     }
 
     private static byte[] CreateTravelKeyCommand(TravelKey travelKey)
@@ -116,7 +115,7 @@ public static class Packets
     {
         byte[] command = [.. travelKeys.SelectMany(CreateTravelKeyCommand)];
         var packets = ToPackets(CommandType.SetTravelKeys.As(), 1024 * profileIndex, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.SetTravelKeys, Packets = packets };
     }
 
     private static List<(int Code, string Action, int Delay)> CreateMacroCommand(Macro macro, int index)
@@ -183,21 +182,21 @@ public static class Packets
         }
         byte[] command = [.. a, 0, 0, 128, 0, .. o];
         var packets = ToPackets(CommandType.SetMacro.As(), 2048 * profileIndex, command);
-        return new() { Packets = packets, };
+        return new() { Type = CommandType.SetMacro, Packets = packets, };
     }
 
     public static Command CreateSetAllTglKeyInfo(IReadOnlyCollection<Tglkey> tglKeys, int profileIndex = INDEX)
     {
         var command = RightPad([.. tglKeys.SelectMany(tglKey => new byte[] { (byte)tglKey.Type, (byte)tglKey.Code1, (byte)tglKey.Code2 })], 128);
         var packets = ToPackets(CommandType.SetTglKeyInfo.As(), 128 * profileIndex, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.SetTglKeyInfo, Packets = packets };
     }
 
     public static Command CreateSetAllMtKeyInfo(IReadOnlyCollection<(AdvancedKeySimpleSettings MtClickKey, AdvancedKeySimpleSettings MtDownKey)> mtKeys, int profileIndex = INDEX)
     {
         var command = RightPad([.. mtKeys.SelectMany(mtKey => new byte[] { (byte)mtKey.MtClickKey.Type, (byte)mtKey.MtClickKey.Code1, (byte)mtKey.MtClickKey.Code2, (byte)mtKey.MtDownKey.Type, (byte)mtKey.MtDownKey.Code1, (byte)mtKey.MtDownKey.Code2 })], 256);
         var packets = ToPackets(CommandType.SetMtKeyInfo.As(), 256 * profileIndex, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.SetMtKeyInfo, Packets = packets };
     }
 
     private static byte DksStatusToBit(int state)
@@ -249,6 +248,6 @@ public static class Packets
         var command = RightPad([.. advancedKeys
             .SelectMany(key => PacketForDksKeySetting(key.DksPoints, key.DksKeys))], 768);
         var packets = ToPackets(CommandType.SetDksKeyInfo.As(), 768 * profileIndex, command);
-        return new() { Packets = packets };
+        return new() { Type = CommandType.SetDksKeyInfo, Packets = packets };
     }
 }

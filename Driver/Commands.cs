@@ -16,6 +16,30 @@ public static class Commands
             keyboardProfile.CreateSetAllDksKeyInfo(),
             ];
 
+    private static byte[]? Reduce(this byte[] packet, byte[] other)
+    {
+        if (packet.SequenceEqual(other) 
+            //&& packet[8..].SequenceEqual(new byte[packet[8..].Length])
+            )
+        {
+            return null;
+        }
+        return packet;
+    }
+
+    private static Command Reduce(this Command command, Command? other)
+    {
+        if (other is null || other.Type is CommandType.Lighting || command.Packets.Count != other.Packets.Count)
+        {
+            return command;
+        }
+        var result = command with { Packets = [.. command.Packets.Select((p, i) => p.Reduce(other.Packets.ElementAt(i))).OfType<byte[]>()] };
+        return result;
+    }
+
+    public static IReadOnlyCollection<Command> Reduce(this IReadOnlyCollection<Command> commands1, IReadOnlyCollection<Command> commands2)
+        => [.. commands1.Select((command, i) => command.Reduce(commands2.ElementAtOrDefault(i)))];
+
     public static Command CreateSetLightCommand(this KeyboardProfile keyboardProfile, byte[] baseKeyboardConfig)
         => Packets.CreateSetLightCommand(baseKeyboardConfig, keyboardProfile.Light);
 
