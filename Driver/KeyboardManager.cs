@@ -65,8 +65,6 @@ public sealed class KeyboardManager : IDisposable
          new KeyboardFilter { VendorId = 14391, ProductId = 8208,   UsagePage =  65280, Usage = 1 },
     ];
 
-    const int SUPPORTED_FW_VERSION_MIN = 111;
-
     public KeyboardWithSpecs? _keyboardWithSpecs;
     public KeyboardWithSpecs? KeyboardWithSpecs
     {
@@ -105,12 +103,7 @@ public sealed class KeyboardManager : IDisposable
         {
             return null;
         }
-        if (specs.Info.FirmwareVersion < SUPPORTED_FW_VERSION_MIN)
-        {
-            Console.WriteLine("Supported keyboard {0} found but firmware version {1} lower than minimum required {2}", kb.GetFriendlyName(), specs.Info.FirmwareVersion, SUPPORTED_FW_VERSION_MIN);
-            return null;
-        }
-        Console.WriteLine("Keyboard found {0}", keyboard.GetFriendlyName());
+        Console.WriteLine("Supported keyboard found {1} with firmware version {1}", keyboard.GetFriendlyName(), specs.Info.FirmwareVersion);
         return (keyboard, specs);
     }
 
